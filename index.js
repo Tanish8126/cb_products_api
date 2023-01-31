@@ -1,30 +1,33 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const express = require("./config/app.config");
+const { MONGO_DB_CONFIG } = require("./config/app.config");
 const errors = require("./middleware/errors.js");
 const swagerUi = require("swagger-ui-express"), swaggerDocument = require("./swagger.json");
+const { use } = require("./routes/categories.routes");
+
 
 mongoose.Promise = global.Promise;
 mongoose
- .connect(MONGO_DB_CONFIG.DB, {
-    useNewUrlPraser: true,
-    useUnifiedTopology: true,
- })
- .then(
-        () => {
-            console.log("Database Connected");
-        },
-        (error) => {
-            console.log("Database can't br connected:" + error);
-        }
- );
+   .connect ( MONGO_DB_CONFIG.DB, { useNewUrlParser: true, useUnifiedTopology: true,} ).then(
+      () => {
+         console.log("Databse Connected");
+      },
+      (error) => {console.log("Database Can't be connected: " + error)}
+   )
 
  app.use(express.json());
  app.use("/uploads", express.static("uploads"));
- app.use("/api", require("./routes/app.routes"));
+ app.use("/api", require("./routes/categories.routes"));
  app.use(errors.errorHandler);
  app.use("/api-docs", swagerUi.serve, swagerUi.setup(swaggerDocument));
+//  app.post("/create",async(req,res)=>{
+//     const data= req.body
+//     await Category.add(data)
+//     res.send({
+//         msg: "Category Added"
+//     })
+//  })
 
 
  app.listen(process.env.port || 4000, function () {

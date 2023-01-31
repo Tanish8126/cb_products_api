@@ -1,5 +1,4 @@
 const multer = require("multer");
-const path = require("path");
 const Path = require("path");
 const { callbackify } = require("util");
 
