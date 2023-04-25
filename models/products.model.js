@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const product = mongoose.model(
@@ -8,7 +7,7 @@ const product = mongoose.model(
       productName: String,
       productDescription: String,
       productPrice: Number,
-      productImage: String
+      productImage: String,
     },
     { timestamps: true }
   )

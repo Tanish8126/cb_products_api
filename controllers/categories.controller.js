@@ -59,7 +59,7 @@ exports.findAll = (req, res, next) => {
             return next (error); 
         }
         else {
-            return res.status(200).send({
+            return res.status(200).send({ 
                 message: "Success",
                 data: results,
             })
